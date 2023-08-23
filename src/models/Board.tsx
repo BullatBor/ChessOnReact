@@ -1,6 +1,7 @@
 import { Cell } from "./Cell";
 import { Colors } from "./Colors";
 import { Bishop } from "./figures/Bishop";
+import { Figure } from "./figures/Figures";
 import { King } from "./figures/King";
 import { Knight } from "./figures/Knight";
 import { Pawn } from "./figures/Pawn";
@@ -9,6 +10,9 @@ import { Rook } from "./figures/Rook";
 
 export class Board {
   cells: Cell[][] = [];
+  lostBlackFigures: Figure[] = [];
+  lostWhiteFigures: Figure[] = [];
+  winner: string | null = null;
 
   public initCells() {
     for (let i = 0; i < 8; i++) {
@@ -25,6 +29,8 @@ export class Board {
   public getCopyBoard(): Board {
     const newBoard = new Board();
     newBoard.cells = this.cells;
+    newBoard.lostBlackFigures = this.lostBlackFigures;
+    newBoard.lostWhiteFigures = this.lostWhiteFigures;
     return newBoard;
   }
 
@@ -78,6 +84,10 @@ export class Board {
       new Pawn(Colors.WHITE, this.getCell(i, 6));
       new Pawn(Colors.BLACK, this.getCell(i, 1));
     }
+  }
+
+  public gameOver(winner: string | null) {
+    this.winner = winner === Colors.WHITE ? Colors.WHITE : Colors.BLACK;
   }
 
   public addFigure() {
