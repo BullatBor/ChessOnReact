@@ -3,13 +3,21 @@ import cl from "./Board.module.css";
 import { Board } from "../../models/Board";
 import { CellComponent } from "./CellComponent";
 import { Cell } from "../../models/Cell";
+import { Player } from "../../models/Player";
 
 interface BoardProps {
   board: Board;
+  currentPlayer: Player | null;
   setBoard: (board: Board) => void;
+  swapPlayer: () => void;
 }
 
-export const BoardComponent: FC<BoardProps> = ({ board, setBoard }) => {
+export const BoardComponent: FC<BoardProps> = ({
+  board,
+  setBoard,
+  currentPlayer,
+  swapPlayer,
+}) => {
   const [cellSelected, setCellSelected] = useState<Cell | null>(null);
 
   const clickCell = (cell: Cell) => {
@@ -20,9 +28,12 @@ export const BoardComponent: FC<BoardProps> = ({ board, setBoard }) => {
     ) {
       cellSelected.moveFigure(cell);
       setCellSelected(null);
+      swapPlayer();
       UpdateBoard();
     } else if (cell.figure) {
-      setCellSelected(cell);
+      if (cell.figure?.color === currentPlayer?.color) {
+        setCellSelected(cell);
+      }
     }
   };
 
