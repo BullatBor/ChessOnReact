@@ -87,7 +87,11 @@ export class Board {
   }
 
   public gameOver(winner: string | null) {
-    this.winner = winner === Colors.WHITE ? Colors.WHITE : Colors.BLACK;
+    if (winner === Colors.WHITE) {
+      this.winner = Colors.WHITE;
+    } else if (winner === Colors.BLACK) {
+      this.winner = Colors.BLACK;
+    } else this.winner = null;
   }
 
   public addFigure() {

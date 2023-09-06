@@ -14,6 +14,9 @@ function App() {
   const [activeModal, setActiveModal] = useState<boolean>(false);
   const [whitePlayer, setWhitePlayer] = useState(new Player(Colors.WHITE));
   const [blackPlayer, setBlackPlayer] = useState(new Player(Colors.BLACK));
+  const [WhiteTime, setWhiteTime] = useState(300);
+  const [BlackTime, setBlackTime] = useState(3);
+
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
   useEffect(() => {
     restartBoard();
@@ -27,11 +30,14 @@ function App() {
   }
 
   function restartBoard() {
+    setActiveModal(false);
     const newBoard = new Board();
     newBoard.initCells();
     newBoard.addFigure();
     newBoard.gameOver(null);
     setCurrentPlayer(whitePlayer);
+    setBlackTime(300);
+    setWhiteTime(300);
     setBoard(newBoard);
   }
   return (
@@ -39,9 +45,13 @@ function App() {
       <Timer
         restart={restartBoard}
         currentPlayer={currentPlayer}
-        board={board}
         setBoard={setBoard}
-        gameOver={setActiveModal}
+        setActiveModal={setActiveModal}
+        setWhiteTime={setWhiteTime}
+        setBlackTime={setBlackTime}
+        WhiteTime={WhiteTime}
+        BlackTime={BlackTime}
+        activeModal={activeModal}
       />
       <BoardComponent
         board={board}
@@ -57,6 +67,7 @@ function App() {
         active={activeModal}
         setActive={setActiveModal}
         restartGame={restartBoard}
+        board={board}
       />
     </div>
   );
