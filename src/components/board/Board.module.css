@@ -43,10 +43,29 @@
 }
 
 .lostFigures {
-  height: calc(50vh - 60px);
-  padding: 30px;
+  height: calc(50vh - 40px);
+  padding: 10px 20px 10px 30px;
   margin-left: 50px;
   background-color: lightgreen;
+}
+
+.figuresList {
+  overflow-x: auto;
+  height: 100%;
+  scrollbar-gutter: stable;
+  width: 100%;
+}
+
+.figuresList::-webkit-scrollbar {
+  width: 10px; /* в основном для вертикальных полос прокрутки */
+}
+.figuresList::-webkit-scrollbar-thumb {
+  /* плашка-бегунок */
+  background: rgba(170, 123, 37, 0.699);
+}
+.figuresList::-webkit-scrollbar-track {
+  /* фон */
+  background: rgb(179, 209, 108);
 }
 
 .RestartBtn button {
