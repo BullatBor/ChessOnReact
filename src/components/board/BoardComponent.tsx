@@ -24,12 +24,14 @@ export const BoardComponent: FC<BoardProps> = ({
     if (
       cellSelected &&
       cellSelected !== cell &&
-      cellSelected.figure?.canMove(cell)
+      cellSelected.figure?.canMove(cell) &&
+      !cellSelected.figure?.checkmate(cell)
     ) {
       cellSelected.moveFigure(cell);
       setCellSelected(null);
       swapPlayer();
       UpdateBoard();
+      board.checkmate(cell);
     } else if (cell.figure) {
       if (cell.figure?.color === currentPlayer?.color) {
         setCellSelected(cell);

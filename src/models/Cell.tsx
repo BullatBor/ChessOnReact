@@ -9,6 +9,7 @@ export class Cell {
   figure: Figure | null;
   board: Board;
   availabel: boolean;
+  danger: boolean = false;
   id: number;
 
   constructor(

@@ -13,6 +13,8 @@ export class Board {
   lostBlackFigures: Figure[] = [];
   lostWhiteFigures: Figure[] = [];
   winner: string | null = null;
+  check: boolean = false;
+  checkMate: boolean = false;
 
   public initCells() {
     for (let i = 0; i < 8; i++) {
@@ -29,6 +31,7 @@ export class Board {
   public getCopyBoard(): Board {
     const newBoard = new Board();
     newBoard.cells = this.cells;
+    newBoard.check = false;
     newBoard.lostBlackFigures = this.lostBlackFigures;
     newBoard.lostWhiteFigures = this.lostWhiteFigures;
     return newBoard;
@@ -44,6 +47,20 @@ export class Board {
     }
   }
 
+  public checkmate(selectedCell: Cell | null) {
+    for (let i = 0; i < this.cells.length; i++) {
+      const row = this.cells[i];
+      for (let j = 0; j < row.length; j++) {
+        const target = row[j];
+        target.availabel = !!selectedCell?.figure?.canMove(target);
+        let check = !!selectedCell?.figure?.checkmate(target);
+        if (check) {
+          this.check = true;
+          target.danger = !!selectedCell?.figure?.checkmate(target);
+        }
+      }
+    }
+  }
   public getCell(x: number, y: number) {
     return this.cells[y][x];
   }
