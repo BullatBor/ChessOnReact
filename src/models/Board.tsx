@@ -47,46 +47,37 @@ export class Board {
     }
   }
 
-  public Test(selectedCell: Cell | null): [Cell, Cell] | null {
-    let KingUnderAttack = false;
-    let AttackerСolor = null;
-    let WhiteKing = this.cells[0][0];
-    let BlackKing = this.cells[0][0];
-    let KingCell = null;
+  public Test(selectedCell: Cell | null): boolean {
     for (let i = 0; i < this.cells.length; i++) {
       const row = this.cells[i];
       for (let j = 0; j < row.length; j++) {
         const target = row[j];
         target.availabel = !!selectedCell?.figure?.canMove(target);
         let check = !!selectedCell?.figure?.checkmate(target);
-        if (
-          target.figure?.name === FigureNames.KING &&
-          target.color === Colors.WHITE
-        )
-          WhiteKing = target;
-        if (
-          target.figure?.name === FigureNames.KING &&
-          target.color === Colors.BLACK
-        )
-          //Не возвращается Король а ладья котоую я задал в начале
-          BlackKing = target;
-
         if (target.availabel && check) {
           this.check = true;
           target.danger = true;
-          return null;
-          break;
-          //KingUnderAttack = true;
-          //AttackerСolor =
-          //target.color === Colors.WHITE ? Colors.BLACK : Colors.WHITE;
-          debugger;
+          return true;
         }
       }
     }
-    return [WhiteKing, BlackKing];
+    return false;
+  }
+
+  private dangerCancel() {
+    for (let i = 0; i < this.cells.length; i++) {
+      const row = this.cells[i];
+      for (let j = 0; j < row.length; j++) {
+        const target = row[j];
+        if (target.figure?.name === FigureNames.KING) {
+          target.danger = false;
+        }
+      }
+    }
   }
 
   public checkmate(selectedCell: Cell | null) {
+    let isCheck = false;
     for (let i = 0; i < this.cells.length; i++) {
       const row = this.cells[i];
       for (let j = 0; j < row.length; j++) {
@@ -94,19 +85,14 @@ export class Board {
         if (target.figure) {
           let result = this.Test(target);
           if (result) {
-            let [WhiteKing, BlackKing] = result;
-            WhiteKing.danger = true;
-            BlackKing.danger = true;
-          } else debugger;
+            isCheck = true;
+            break;
+          }
         }
-        /*
-        if(availabel && )
-        let check = !!selectedCell?.figure?.checkmate(target);
-        if (check) {
-          this.check = true;
-          target.danger = !!selectedCell?.figure?.checkmate(target);
-        }*/
       }
+    }
+    if (!isCheck) {
+      this.dangerCancel();
     }
   }
   public getCell(x: number, y: number) {
