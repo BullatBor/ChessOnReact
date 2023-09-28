@@ -9,7 +9,7 @@ export class Cell {
   figure: Figure | null;
   board: Board;
   availabel: boolean;
-  danger: boolean = false;
+  danger: boolean;
   id: number;
 
   constructor(
@@ -25,6 +25,7 @@ export class Cell {
     this.figure = figure;
     this.board = board;
     this.availabel = false;
+    this.danger = false;
     this.id = Math.random();
   }
 
