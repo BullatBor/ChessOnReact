@@ -47,7 +47,7 @@ export class Board {
     }
   }
 
-  public Test(selectedCell: Cell | null): boolean {
+  public searchCheck(selectedCell: Cell | null): boolean {
     for (let i = 0; i < this.cells.length; i++) {
       const row = this.cells[i];
       for (let j = 0; j < row.length; j++) {
@@ -76,14 +76,14 @@ export class Board {
     }
   }
 
-  public checkmate(selectedCell: Cell | null) {
+  public checkmate(): boolean {
     let isCheck = false;
     for (let i = 0; i < this.cells.length; i++) {
       const row = this.cells[i];
       for (let j = 0; j < row.length; j++) {
         const target = row[j];
         if (target.figure) {
-          let result = this.Test(target);
+          let result = this.searchCheck(target);
           if (result) {
             isCheck = true;
             break;
@@ -93,7 +93,8 @@ export class Board {
     }
     if (!isCheck) {
       this.dangerCancel();
-    }
+    } else return true;
+    return false;
   }
   public getCell(x: number, y: number) {
     return this.cells[y][x];
