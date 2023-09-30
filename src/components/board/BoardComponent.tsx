@@ -27,21 +27,19 @@ export const BoardComponent: FC<BoardProps> = ({
       cellSelected.figure?.canMove(cell) &&
       !cellSelected.figure?.checkmate(cell)
     ) {
-      let backCell = cellSelected;
-      const newBoard = board.getCopyBoard();
+      let newBoard = board;
+      cellSelected.moveFigure(cell);
       if (board.checkmate()) {
-        cellSelected.moveFigure(cell);
-        UpdateBoard();
-        if (board.checkmate()) {
-          cell.moveFigure(cellSelected);
-          setCellSelected(null);
-          debugger;
-        } else {
+        let king = board.KingsUnderAttack;
+        if (king[0].color !== currentPlayer?.color) {
           swapPlayer();
-          debugger;
+        } else {
+          cell.backFigure(cellSelected);
+          //setBoard(newBoard);
+          //UpdateBoard();
+          setCellSelected(null);
         }
       } else {
-        cellSelected.moveFigure(cell);
         setCellSelected(null);
         swapPlayer();
         UpdateBoard();

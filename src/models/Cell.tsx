@@ -100,4 +100,11 @@ export class Cell {
       this.figure = null;
     }
   }
+
+  backFigure(target: Cell) {
+    if (this.figure) {
+      target.setFigure(this.figure);
+      this.figure = null;
+    }
+  }
 }

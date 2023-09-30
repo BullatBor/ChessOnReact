@@ -15,6 +15,7 @@ export class Board {
   winner: string | null = null;
   check: boolean = false;
   checkMate: boolean = false;
+  KingsUnderAttack: Figure[] = [];
 
   public initCells() {
     for (let i = 0; i < 8; i++) {
@@ -55,6 +56,7 @@ export class Board {
         target.availabel = !!selectedCell?.figure?.canMove(target);
         let check = !!selectedCell?.figure?.checkmate(target);
         if (target.availabel && check) {
+          if (target.figure) this.KingsUnderAttack.push(target.figure);
           this.check = true;
           target.danger = true;
           return true;
