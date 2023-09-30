@@ -1,0 +1,17 @@
+{
+  "files": {
+    "main.css": "/ChessOnReact/static/css/main.4218f1d6.css",
+    "main.js": "/ChessOnReact/static/js/main.21ce3287.js",
+    "static/js/787.28cb0dcd.chunk.js": "/ChessOnReact/static/js/787.28cb0dcd.chunk.js",
+    "static/media/BlackCrown.jpeg": "/ChessOnReact/static/media/BlackCrown.411efb29a4c919f2fbf4.jpeg",
+    "static/media/WhiteCrown.jpeg": "/ChessOnReact/static/media/WhiteCrown.86c0c4146b9c0d863650.jpeg",
+    "index.html": "/ChessOnReact/index.html",
+    "main.4218f1d6.css.map": "/ChessOnReact/static/css/main.4218f1d6.css.map",
+    "main.21ce3287.js.map": "/ChessOnReact/static/js/main.21ce3287.js.map",
+    "787.28cb0dcd.chunk.js.map": "/ChessOnReact/static/js/787.28cb0dcd.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.4218f1d6.css",
+    "static/js/main.21ce3287.js"
+  ]
+}
