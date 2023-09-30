@@ -24,12 +24,28 @@ export const BoardComponent: FC<BoardProps> = ({
     if (
       cellSelected &&
       cellSelected !== cell &&
-      cellSelected.figure?.canMove(cell)
+      cellSelected.figure?.canMove(cell) &&
+      !cellSelected.figure?.checkmate(cell)
     ) {
-      cellSelected.moveFigure(cell);
-      setCellSelected(null);
-      swapPlayer();
-      UpdateBoard();
+      let backCell = cellSelected;
+      const newBoard = board.getCopyBoard();
+      if (board.checkmate()) {
+        cellSelected.moveFigure(cell);
+        UpdateBoard();
+        if (board.checkmate()) {
+          cell.moveFigure(cellSelected);
+          setCellSelected(null);
+          debugger;
+        } else {
+          swapPlayer();
+          debugger;
+        }
+      } else {
+        cellSelected.moveFigure(cell);
+        setCellSelected(null);
+        swapPlayer();
+        UpdateBoard();
+      }
     } else if (cell.figure) {
       if (cell.figure?.color === currentPlayer?.color) {
         setCellSelected(cell);

@@ -2,6 +2,7 @@ import React, { FC } from "react";
 import { Cell } from "../../models/Cell";
 import cl from "./Board.module.css";
 import cn from "classnames";
+import { FigureNames } from "../../models/figures/Figures";
 
 export const CellComponent: FC<CellProps> = ({ cell, selected, clickCell }) => {
   let classCell = cell.color;
@@ -9,7 +10,14 @@ export const CellComponent: FC<CellProps> = ({ cell, selected, clickCell }) => {
     <div
       className={cn(cl.cell, cl[classCell], selected ? cl.selected : "")}
       onClick={() => clickCell(cell)}
-      style={{ background: cell.availabel && cell.figure ? "green" : "" }}
+      style={{
+        background:
+          cell.availabel && cell.figure
+            ? "green"
+            : cell.danger && cell.figure?.name === FigureNames.KING
+            ? "red"
+            : "",
+      }}
     >
       {cell.availabel && !cell.figure && <div className={cl.available}></div>}
       {cell.figure?.logo && <img src={cell.figure.logo} alt="Figure" />}

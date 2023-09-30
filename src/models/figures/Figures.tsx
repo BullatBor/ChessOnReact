@@ -30,8 +30,17 @@ export class Figure {
 
   canMove(target: Cell): boolean {
     if (target.figure?.color === this.color) return false;
-    if (target.figure?.name === FigureNames.KING) return false;
+    if (target.figure?.name === FigureNames.KING) {
+      return true;
+    }
     return true;
+  }
+
+  checkmate(target: Cell): boolean {
+    if (target.figure?.name === FigureNames.KING && target.availabel) {
+      return true;
+    }
+    return false;
   }
 
   moveFigure(target: Cell) {}

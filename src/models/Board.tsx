@@ -1,7 +1,7 @@
 import { Cell } from "./Cell";
 import { Colors } from "./Colors";
 import { Bishop } from "./figures/Bishop";
-import { Figure } from "./figures/Figures";
+import { Figure, FigureNames } from "./figures/Figures";
 import { King } from "./figures/King";
 import { Knight } from "./figures/Knight";
 import { Pawn } from "./figures/Pawn";
@@ -13,6 +13,8 @@ export class Board {
   lostBlackFigures: Figure[] = [];
   lostWhiteFigures: Figure[] = [];
   winner: string | null = null;
+  check: boolean = false;
+  checkMate: boolean = false;
 
   public initCells() {
     for (let i = 0; i < 8; i++) {
@@ -29,6 +31,7 @@ export class Board {
   public getCopyBoard(): Board {
     const newBoard = new Board();
     newBoard.cells = this.cells;
+    newBoard.check = false;
     newBoard.lostBlackFigures = this.lostBlackFigures;
     newBoard.lostWhiteFigures = this.lostWhiteFigures;
     return newBoard;
@@ -44,6 +47,55 @@ export class Board {
     }
   }
 
+  public searchCheck(selectedCell: Cell | null): boolean {
+    for (let i = 0; i < this.cells.length; i++) {
+      const row = this.cells[i];
+      for (let j = 0; j < row.length; j++) {
+        const target = row[j];
+        target.availabel = !!selectedCell?.figure?.canMove(target);
+        let check = !!selectedCell?.figure?.checkmate(target);
+        if (target.availabel && check) {
+          this.check = true;
+          target.danger = true;
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  private dangerCancel() {
+    for (let i = 0; i < this.cells.length; i++) {
+      const row = this.cells[i];
+      for (let j = 0; j < row.length; j++) {
+        const target = row[j];
+        if (target.figure?.name === FigureNames.KING) {
+          target.danger = false;
+        }
+      }
+    }
+  }
+
+  public checkmate(): boolean {
+    let isCheck = false;
+    for (let i = 0; i < this.cells.length; i++) {
+      const row = this.cells[i];
+      for (let j = 0; j < row.length; j++) {
+        const target = row[j];
+        if (target.figure) {
+          let result = this.searchCheck(target);
+          if (result) {
+            isCheck = true;
+            break;
+          }
+        }
+      }
+    }
+    if (!isCheck) {
+      this.dangerCancel();
+    } else return true;
+    return false;
+  }
   public getCell(x: number, y: number) {
     return this.cells[y][x];
   }
