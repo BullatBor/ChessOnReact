@@ -1,0 +1,83 @@
+#+title: Игра "Шахматы" с использованием React, TypeScript и принципов ООП
+
+Этот проект представляет собой реализацию игры "Шахматы" с использованием языка программирования JavaScript, библиотеки React и языка TypeScript, а также принципов объектно-ориентированного программирования (ООП).
+
+*** Установка
+
+1. Клонируйте репозиторий на свой компьютер:
+   =git clone https://github.com/your-username/chess-game.git=
+2. Перейдите в директорию проекта:
+   =cd chess-game=
+   
+3. Установите зависимости:
+   =npm install=
+   
+*** Запуск проекта
+
+1. Запустите локальный сервер для разработки:
+   =npm start=
+   
+2. Перейдите в браузере по адресу http://localhost:3000, чтобы открыть игру "Шахматы".
+
+*** Основные особенности проекта
+
+- Реализация игры "Шахматы" с использованием библиотеки React и языка TypeScript, обеспечивающих эффективное и типобезопасное разработку.
+- Применение принципов объектно-ориентированного программирования (ООП) для создания моделей для фигур, доски и игровой логики.
+- Использование компонентного подхода для создания пользовательского интерфейса с помощью React компонентов.
+- Возможность легкого масштабирования проекта, добавления новых фигур и расширения игровой логики.
+
+*** Структура проекта
+
+#+begin_src bash
+  .
+  ├── README.org
+  ├── package-lock.json
+  ├── package.json
+  ├── src
+  │   ├── assets<~~~~~~~~~~~~~~~~~~~~~~~~~~~~| Directory with images.                  
+  │   │   ├── black-bishop.png
+  │   │   ├── black-king.png
+  │   │   ├── black-knight.png
+  │   │   ├── black-pawn.png
+  │   │   ├── black-queen.png
+  │   │   ├── black-rook.png
+  │   │   ├── BlackCrown.png
+  │   │   ├── white-bishop.png
+  │   │   ├── white-king.png
+  │   │   ├── white-knight.png
+  │   │   ├── white-pawn.png
+  │   │   ├── white-queen.png
+  │   │   ├── white-rook.png
+  │   │   └── WhiteCrown.png
+  │   └── components
+  │   │   ├── board
+  │   │   │   ├── Board.module.css
+  │   │   │   ├── BoardComponent.tsx
+  │   │   │   ├── CellComponent.tsx
+  │   │   │   ├── LostFigures.tsx
+  │   │   │   └── Timer.tsx
+  │   │   └── modal
+  │   │       ├── Modal.module.css
+  │   │       └── Modal.tsx
+  │   ├── models
+  │   │   ├── figures
+  │   │   │   ├── Bishop.tsx  
+  │   │   │   ├── Figures.tsx  
+  │   │   │   ├── King.tsx  
+  │   │   │   ├── Knight.tsx  
+  │   │   │   ├── Pawn.tsx  
+  │   │   │   ├── Queen.tsx  
+  │   │   │   └── Rook.tsx     
+  │   │   ├── Board.tsx
+  │   │   ├── Cell.tsx
+  │   │   ├── Colors.tsx
+  │   │   └── Player.tsx
+  │   ├── App.css
+  │   ├── App.tsx
+  │   ├── index.css
+  │   └── index.tsx
+  ├── tsconfig.json
+  └── gitignore.
+
+  7 directories, 46 files
+#+end_src
