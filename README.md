@@ -1,3 +1,12 @@
+# Игра "Шахматы" с использованием React, TypeScript и принципов ООП
+
+Этот проект представляет собой реализацию игры "Шахматы" с использованием языка программирования JavaScript, библиотеки React и языка TypeScript, а также принципов объектно-ориентированного программирования (ООП).
+
+## Установка
+
+1. Клонируйте репозиторий на свой компьютер:
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
