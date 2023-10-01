@@ -7,6 +7,7 @@
 1. Клонируйте репозиторий на свой компьютер:
 
 ## Структура проекта
+*** Folders structure
 #+begin_src bash
   .
   ├── README.md
