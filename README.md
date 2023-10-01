@@ -6,6 +6,60 @@
 
 1. Клонируйте репозиторий на свой компьютер:
 
+## Структура проекта
+#+begin_src bash
+  .
+  ├── README.md
+  ├── package-lock.json
+  ├── package.json
+  ├── src
+  │   ├── assets<~~~~~~~~~~~~~~~~~~~~~~~~~~~~| Directory with images.
+  │   │   ├── black-bishop.png
+  │   │   ├── black-king.png
+  │   │   ├── black-knight.png
+  │   │   ├── black-pawn.png
+  │   │   ├── black-queen.png
+  │   │   ├── black-rook.png
+  │   │   ├── BlackCrown.png
+  │   │   ├── white-bishop.png
+  │   │   ├── white-king.png
+  │   │   ├── white-knight.png
+  │   │   ├── white-pawn.png
+  │   │   ├── white-queen.png
+  │   │   ├── white-rook.png
+  │   │   └── WhiteCrown.png
+  │   └── components
+  │   │   ├── board
+  │   │   │   ├── Board.module.css
+  │   │   │   ├── BoardComponent.tsx
+  │   │   │   ├── CellComponent.tsx
+  │   │   │   ├── LostFigures.tsx
+  │   │   │   └── Timer.tsx
+  │   │   └── modal
+  │   │       ├── Modal.module.css
+  │   │       └── Modal.tsx
+  │   ├── models
+  │   │   ├── figures
+  │   │   │   ├── Bishop.tsx  
+  │   │   │   ├── Figures.tsx  
+  │   │   │   ├── King.tsx  
+  │   │   │   ├── Knight.tsx  
+  │   │   │   ├── Pawn.tsx  
+  │   │   │   ├── Queen.tsx  
+  │   │   │   └── Rook.tsx     
+  │   │   ├── Board.tsx
+  │   │   ├── Cell.tsx
+  │   │   ├── Colors.tsx
+  │   │   └── Player.tsx
+  │   ├── App.css
+  │   ├── App.tsx
+  │   ├── index.css
+  │   └── index.tsx
+  ├── tsconfig.json
+  └── gitignore.
+
+  7 directories, 46 files
+#+end_src
 
 # Getting Started with Create React App
 
