@@ -12,6 +12,7 @@
     "@types/react": "^18.2.18",
     "@types/react-dom": "^18.2.7",
     "classnames": "^2.3.2",
+    "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
@@ -23,7 +24,8 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
-    "deploy": "gh-pages -d dist"
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "eslintConfig": {
     "extends": [
@@ -44,6 +46,7 @@
     ]
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.199",
     "gh-pages": "^6.0.0"
   }
 }

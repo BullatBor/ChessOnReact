@@ -58,6 +58,7 @@ function App() {
         setBoard={setBoard}
         currentPlayer={currentPlayer}
         swapPlayer={swapPlayer}
+        setActiveModal={setActiveModal}
       />
       <div>
         <LostFigures title="Черные фигуры" figures={board.lostBlackFigures} />
