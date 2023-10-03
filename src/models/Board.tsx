@@ -7,6 +7,7 @@ import { Knight } from "./figures/Knight";
 import { Pawn } from "./figures/Pawn";
 import { Queen } from "./figures/Queen";
 import { Rook } from "./figures/Rook";
+import lodash from "lodash";
 
 export class Board {
   cells: Cell[][] = [];
@@ -16,6 +17,7 @@ export class Board {
   check: boolean = false;
   checkMate: boolean = false;
   KingsUnderAttack: Figure[] = [];
+  moves: Board[] = [];
 
   public initCells() {
     for (let i = 0; i < 8; i++) {
@@ -32,6 +34,8 @@ export class Board {
   public getCopyBoard(): Board {
     const newBoard = new Board();
     newBoard.cells = this.cells;
+    newBoard.moves = this.moves;
+    newBoard.KingsUnderAttack = this.KingsUnderAttack;
     newBoard.check = false;
     newBoard.lostBlackFigures = this.lostBlackFigures;
     newBoard.lostWhiteFigures = this.lostWhiteFigures;
@@ -56,7 +60,9 @@ export class Board {
         target.availabel = !!selectedCell?.figure?.canMove(target);
         let check = !!selectedCell?.figure?.checkmate(target);
         if (target.availabel && check) {
-          if (target.figure) this.KingsUnderAttack.push(target.figure);
+          if (target.figure)
+            if (!this.KingsUnderAttack.includes(target.figure))
+              this.KingsUnderAttack.push(target.figure);
           this.check = true;
           target.danger = true;
           return true;
@@ -96,6 +102,7 @@ export class Board {
     if (!isCheck) {
       this.dangerCancel();
     } else return true;
+    this.KingsUnderAttack = [];
     return false;
   }
   public getCell(x: number, y: number) {
@@ -141,11 +148,19 @@ export class Board {
   }
 
   public gameOver(winner: string | null) {
-    if (winner === Colors.WHITE) {
-      this.winner = Colors.WHITE;
-    } else if (winner === Colors.BLACK) {
-      this.winner = Colors.BLACK;
-    } else this.winner = null;
+    switch (winner) {
+      case Colors.WHITE:
+        this.winner = Colors.WHITE;
+        break;
+      case Colors.BLACK:
+        this.winner = Colors.BLACK;
+        break;
+      case "DRAW":
+        this.winner = "DRAW";
+        break;
+      default:
+        this.winner = null;
+    }
   }
 
   public addFigure() {

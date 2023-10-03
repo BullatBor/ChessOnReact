@@ -4,12 +4,14 @@ import { Board } from "../../models/Board";
 import { CellComponent } from "./CellComponent";
 import { Cell } from "../../models/Cell";
 import { Player } from "../../models/Player";
+import lodash from "lodash";
 
 interface BoardProps {
   board: Board;
   currentPlayer: Player | null;
   setBoard: (board: Board) => void;
   swapPlayer: () => void;
+  setActiveModal: (winner: boolean) => void;
 }
 
 export const BoardComponent: FC<BoardProps> = ({
@@ -17,8 +19,30 @@ export const BoardComponent: FC<BoardProps> = ({
   setBoard,
   currentPlayer,
   swapPlayer,
+  setActiveModal,
 }) => {
   const [cellSelected, setCellSelected] = useState<Cell | null>(null);
+  const [listMoves, setListMoves] = useState<Board[]>([board]);
+
+  const saveMove = (board: Board) => {
+    const newBoard = lodash.cloneDeep(board);
+    const newListMoves = [...listMoves, newBoard];
+    if (listMoves.length > 5) {
+      newListMoves.shift(); // Удаляем первый элемент массива
+    }
+    return newListMoves;
+  };
+
+  const draw = () => {
+    let newBoard = new Board();
+    newBoard.gameOver("DRAW");
+    newBoard.initCells();
+    newBoard.addFigure();
+    setTimeout(() => {
+      setActiveModal(true);
+      setBoard(newBoard);
+    }, 2000);
+  };
 
   const clickCell = (cell: Cell) => {
     if (
@@ -27,19 +51,21 @@ export const BoardComponent: FC<BoardProps> = ({
       cellSelected.figure?.canMove(cell) &&
       !cellSelected.figure?.checkmate(cell)
     ) {
-      let newBoard = board;
+      let newBoard = board.getCopyBoard();
       cellSelected.moveFigure(cell);
       if (board.checkmate()) {
         let king = board.KingsUnderAttack;
+        if (king.length === 2) draw();
         if (king[0].color !== currentPlayer?.color) {
+          setListMoves(() => saveMove(newBoard));
           swapPlayer();
         } else {
-          cell.backFigure(cellSelected);
-          //setBoard(newBoard);
-          //UpdateBoard();
+          let newDeepBoard = lodash.cloneDeep(listMoves[listMoves.length - 1]);
+          setBoard(newDeepBoard);
           setCellSelected(null);
         }
       } else {
+        setListMoves(() => saveMove(newBoard));
         setCellSelected(null);
         swapPlayer();
         UpdateBoard();
