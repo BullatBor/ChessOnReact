@@ -12,6 +12,8 @@ interface BoardProps {
   setBoard: (board: Board) => void;
   swapPlayer: () => void;
   setActiveModal: (winner: boolean) => void;
+  listMoves: Board[];
+  setListMoves: (newBoard: Board[]) => void;
 }
 
 export const BoardComponent: FC<BoardProps> = ({
@@ -20,9 +22,10 @@ export const BoardComponent: FC<BoardProps> = ({
   currentPlayer,
   swapPlayer,
   setActiveModal,
+  listMoves,
+  setListMoves,
 }) => {
   const [cellSelected, setCellSelected] = useState<Cell | null>(null);
-  const [listMoves, setListMoves] = useState<Board[]>([board]);
 
   const saveMove = (board: Board) => {
     const newBoard = lodash.cloneDeep(board);
@@ -57,7 +60,7 @@ export const BoardComponent: FC<BoardProps> = ({
         let king = board.KingsUnderAttack;
         if (king.length === 2) draw();
         if (king[0].color !== currentPlayer?.color) {
-          setListMoves(() => saveMove(newBoard));
+          setListMoves(saveMove(newBoard));
           swapPlayer();
         } else {
           let newDeepBoard = lodash.cloneDeep(listMoves[listMoves.length - 1]);
@@ -65,7 +68,7 @@ export const BoardComponent: FC<BoardProps> = ({
           setCellSelected(null);
         }
       } else {
-        setListMoves(() => saveMove(newBoard));
+        setListMoves(saveMove(newBoard));
         setCellSelected(null);
         swapPlayer();
         UpdateBoard();
