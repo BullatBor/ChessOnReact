@@ -3,6 +3,7 @@ import { Board } from "../../models/Board";
 import { Colors } from "../../models/Colors";
 import { Player } from "../../models/Player";
 import cl from "./Board.module.css";
+import lodash from "lodash";
 
 interface TimerProps {
   currentPlayer: Player | null;
@@ -14,6 +15,8 @@ interface TimerProps {
   WhiteTime: number;
   BlackTime: number;
   activeModal: boolean;
+  listMoves: Board[];
+  setListMoves: (newBoard: Board[]) => void;
 }
 
 export const Timer: FC<TimerProps> = ({
@@ -26,9 +29,12 @@ export const Timer: FC<TimerProps> = ({
   WhiteTime,
   BlackTime,
   activeModal,
+  listMoves,
+  setListMoves,
 }) => {
   let isGameOver = false;
   const timer = useRef<null | ReturnType<typeof setInterval>>(null);
+  const [countBack, setCountBack] = useState<number>(5);
 
   useEffect(() => {
     startTimer();
@@ -85,6 +91,21 @@ export const Timer: FC<TimerProps> = ({
     restart();
   };
 
+  const handlerBack = () => {
+    if (countBack > 0 && listMoves.length > 2) {
+      listMoves.pop();
+      let newBoard = listMoves[listMoves.length - 1];
+      //let newBoard = listMoves[listMoves.length - 2];
+      /*
+      let newList = lodash.cloneDeep(
+        listMoves.filter((board) => board !== newBoard)
+      );*/
+      newBoard = lodash.cloneDeep(newBoard);
+      setListMoves(listMoves);
+      setBoard(newBoard);
+    }
+  };
+
   return (
     <div className={cl.TimerPanel}>
       <div className={cl.RestartBtn}>
@@ -92,6 +113,9 @@ export const Timer: FC<TimerProps> = ({
       </div>
       <h2>Черные - {BlackTime}</h2>
       <h2>Белые - {WhiteTime}</h2>
+      <div>
+        <button onClick={handlerBack}>Вернуть 1 ход</button>
+      </div>
     </div>
   );
 };

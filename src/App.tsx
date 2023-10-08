@@ -16,6 +16,7 @@ function App() {
   const [blackPlayer, setBlackPlayer] = useState(new Player(Colors.BLACK));
   const [WhiteTime, setWhiteTime] = useState(300);
   const [BlackTime, setBlackTime] = useState(3);
+  const [listMoves, setListMoves] = useState<Board[]>([board]);
 
   const [currentPlayer, setCurrentPlayer] = useState<Player | null>(null);
   useEffect(() => {
@@ -52,6 +53,8 @@ function App() {
         WhiteTime={WhiteTime}
         BlackTime={BlackTime}
         activeModal={activeModal}
+        listMoves={listMoves}
+        setListMoves={setListMoves}
       />
       <BoardComponent
         board={board}
@@ -59,6 +62,8 @@ function App() {
         currentPlayer={currentPlayer}
         swapPlayer={swapPlayer}
         setActiveModal={setActiveModal}
+        listMoves={listMoves}
+        setListMoves={setListMoves}
       />
       <div>
         <LostFigures title="Черные фигуры" figures={board.lostBlackFigures} />
